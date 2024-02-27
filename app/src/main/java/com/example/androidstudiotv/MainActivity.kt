@@ -1,10 +1,7 @@
 package com.example.androidstudiotv
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.EditText
 import android.widget.Button
 import android.widget.TextView
@@ -16,19 +13,30 @@ import android.media.MediaPlayer
 class MainActivity : AppCompatActivity() {
     private lateinit var inputTime: EditText
     private lateinit var startTimerButton: Button
-    private lateinit var timerTextView: TextView
     private var countDownTimer: CountDownTimer? = null
+    private lateinit var timerTextView: TextView
+    private lateinit var secondText: EditText
+    private lateinit var minuteText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        inputTime = findViewById(R.id.inputTime)
         startTimerButton = findViewById(R.id.startTimerButton)
+        minuteText = findViewById(R.id.inputMinutesText)
+        secondText = findViewById(R.id.inputSecondsText)
         timerTextView = findViewById(R.id.timerTextView)
 
         startTimerButton.setOnClickListener {
-            val timeInSeconds = inputTime.text.toString().toLongOrNull() ?: 0L
+            var minutes = 0L
+            if(minuteText.text.toString().isNotEmpty()) {
+                minutes = minuteText.text.toString().toLong()
+            }
+            var seconds = 0L
+            if(secondText.text.toString().isNotEmpty()) {
+                seconds = secondText.text.toString().toLong()
+            }
+            val timeInSeconds = (minutes * 60) + seconds
             startTimer(timeInSeconds * 1000) // Convert to milliseconds
         }
     }
