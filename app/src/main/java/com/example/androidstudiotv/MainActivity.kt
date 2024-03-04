@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         stopTimerButton = findViewById(R.id.stopTimerButton)
         stopTimerButton.setOnClickListener {
             stopTimer()
-            startTimerButton.text = "Start"
+            startTimerButton.text = "Start Timer"
         }
     }
 
